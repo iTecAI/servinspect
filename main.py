@@ -65,7 +65,7 @@ def get_proc_info(pid):
                 'status': p.status(),
                 'create_time': p.create_time(),
                 'cwd': p.cwd().replace('\\', '/'),
-                'ram_percent': p.memory_percent()*100,
+                'ram_percent': p.memory_percent(),
                 'connections': []
             }
         return dct
