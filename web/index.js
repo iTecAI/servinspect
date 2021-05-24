@@ -88,7 +88,7 @@ $(document).ready(function () {
                 $('<span class="process-ctime"></span>')
                     .text(ctime.getHours() + ':' + ctime.getMinutes() + ':' + ctime.getSeconds())
             );
-            if (process.connections.length > 0) {
+            /*if (process.connections.length > 0) {
                 proc_item.append(
                     $('<div class="process-connections"></div>')
                         .append(process.connections.map(function (v, i, a) {
@@ -110,7 +110,7 @@ $(document).ready(function () {
                                 );
                         }))
                 );
-            }
+            }*/
             dummy_procs.append(proc_item);
         }
         var cscroll = $('#process-area').scrollTop();

@@ -13,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 import math
 import threading
 import time
+import traceback
 
 LOCK = False
 
@@ -136,16 +137,20 @@ async def get_processes():
             pass
 
 if __name__ == "__main__":
-    logging.info('Starting status update thread.')
+    try:
+        logging.info('Starting status update thread.')
 
-    threading.Thread(target=status_loop, daemon=True).start()
+        threading.Thread(target=status_loop, daemon=True).start()
 
-    logging.info('Waiting until status is populated.')
-    while not os.path.exists('last_processes.json'):
-        pass
+        logging.info('Waiting until status is populated.')
+        while not os.path.exists('last_processes.json'):
+            pass
 
-    time.sleep(5)
+        time.sleep(5)
 
-    logging.info(f'Running at {ip()}:{str(cfg["serverPort"])}')
-    uvicorn.run('main:app', host=ip(),
-                port=cfg['serverPort'], access_log=False, log_level="info")
+        logging.info(f'Running at 0.0.0.0:{str(cfg["serverPort"])}')
+        uvicorn.run('main:app', host='0.0.0.0',
+                    port=cfg['serverPort'], access_log=False, log_level="info")
+    except:
+        with open('error.txt', 'w') as f:
+            f.write(traceback.format_exc())
