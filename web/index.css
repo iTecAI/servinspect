@@ -1,0 +1,351 @@
+:root {
+    --primary-dark: #102027;
+    --primary-dark-text: white;
+    --primary: #37474f;
+    --primary-text: white;
+    --primary-light: #62727b;
+    --primary-light-text: white;
+
+    --secondary-dark: #3f1dcb;
+    --secondary-dark-text: white;
+    --secondary: #7c4dff;
+    --secondary-text: white;
+    --secondary-light: #b47cff;
+    --secondary-light-text: black;
+
+    --background-light: #fefefe;
+    --background: #eeeeee;
+    --background-dark: #dddddd;
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5); 
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+}
+
+.shadow-sm {
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5); 
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
+}
+
+.noscroll::-webkit-scrollbar {
+    display: none;
+}
+.noscroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+button:focus, input:focus, select:focus, textarea:focus {
+    outline: none;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+body {
+    overflow: hidden;
+}
+
+html {
+    padding: 0px;
+    background-color: var(--background);
+}
+
+#top-bar {
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-dark);
+    display: inline-block;
+    width: 100%;
+    height: 5vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+
+#top-bar .material-icons:first-child {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translate(0, -50%);
+    color: var(--primary-dark-text);
+    font-size: 24px;
+}
+#title {
+    position: absolute;
+    top: 50%;
+    left: 34px;
+    transform: translate(0, -50%);
+    color: var(--primary-dark-text);
+}
+
+#resource-bar {
+    position: absolute;
+    top: 5vh;
+    left: 0px;
+    display: inline-block;
+    width: 32px;
+    height: 95vh;
+    background-color: var(--primary-light);
+    overflow: hidden;
+}
+
+.resource-item {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: calc((100% / 2));
+    margin: 0px;
+    border-bottom: 2px solid var(--primary-dark);
+    box-sizing: border-box;
+}
+.resource-item .resource-bar {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: calc(92% - 32px);
+    margin: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 11px;
+    background-color: var(--primary);
+    padding: 0px;
+}
+.resource-item .resource-bar span {
+    position: absolute;
+    display: inline-block;
+    bottom: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    background-color: var(--secondary-light);
+    max-height: calc(100% - 4px);
+    transition: height 0.2s;
+}
+.resource-item .resource-stats {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 4%;
+    font-family: 'Roboto', sans-serif;
+    color: var(--primary-light-text);
+    font-size: 12px;
+}
+.resource-item .resource-stats span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    height: fit-content;
+    width: fit-content;
+    max-width: 95%;
+}
+.resource-item .resource-name {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 32px;
+    font-family: 'Roboto', sans-serif;
+    color: var(--primary-light-text);
+    font-size: 14px;
+}
+.resource-item .resource-name span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#disks-panel {
+    position: absolute;
+    top: 5vh;
+    left: 32px;
+    display: inline-block;
+    height: 95vh;
+    width: 300px;
+    background-color: var(--background-dark);
+    border-right: 2px solid var(--primary);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#disks-panel .title {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    height: 30px;
+    width: 100%;
+    background-color: var(--primary);
+    color: var(--primary-text);
+}
+#disks-panel .title .material-icons {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translate(0, -50%);
+}
+#disks-panel .title .title-name {
+    position: absolute;
+    top: 50%;
+    left: 34px;
+    transform: translate(0, -50%);
+    font-family: 'Roboto', sans-serif;
+}
+#disk-area {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    display: inline-block;
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow-y: scroll;
+    padding: 5px;
+    box-sizing: content-box;
+}
+
+#disk-area .disk-item {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 10px);
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--background);
+    margin-bottom: 5px;
+}
+#disk-area .disk-item .disk-name {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-family: monospace;
+}
+#disk-area .disk-item .filled-bar {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    height: 10px;
+    width: calc(100% - 10px); 
+    background-color: var(--background-dark);
+}
+#disk-area .disk-item .filled-bar span {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    border-radius: 3px;
+    background-color: var(--secondary-light);
+}
+#disk-area .disk-item .disk-stat {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-family: monospace;
+}
+
+#process-panel {
+    position: absolute;
+    top: 5vh;
+    left: 332px;
+    display: inline-block;
+    height: 95vh;
+    width: calc(100% - 332px);
+    background-color: var(--background-dark);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#process-panel .title {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    height: 30px;
+    width: 100%;
+    background-color: var(--primary);
+    color: var(--primary-text);
+}
+#process-panel .title .material-icons {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translate(0, -50%);
+}
+#process-panel .title .title-name {
+    position: absolute;
+    top: 50%;
+    left: 34px;
+    transform: translate(0, -50%);
+    font-family: 'Roboto', sans-serif;
+}
+
+#process-area {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    display: inline-block;
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow-y: scroll;
+    box-sizing: content-box;
+}
+#process-area .process-item {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 10px);
+    height: fit-content;
+    padding: 5px;
+    border-bottom: 1px solid var(--primary-light);
+}
+#process-area .process-item .process-title {
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    display: block;
+    width: fit-content;
+    max-width: calc(100% - 10px);
+    overflow-x: hidden;
+}
+#process-area .process-item .process-ram {
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    display: block;
+    width: fit-content;
+    max-width: calc(100% - 10px);
+    overflow-x: hidden;
+}
+#process-area .process-item .process-ctime {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+#process-area .process-item .process-connections {
+    padding: 5px;
+    background-color: #00000022;
+    border-radius: 4px;
+    font-family: monospace;
+    position: relative;
+    display: block;
+}
+#process-area .process-item .process-connections .process-connection-item {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+#process-area .process-item .process-connections .process-connection-item .conn-status {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translate(0, -50%);
+}
