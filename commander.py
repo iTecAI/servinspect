@@ -112,6 +112,8 @@ class NewContainerRequestModel(BaseModel):
     display_name: str
 
 def load_local_container(name, env, dname, vols):
+    env = {i.split('=')[0]: i.split('=')[1] for i in env if len(i) > 0}
+    vols = [i for i in vols if len(i) > 0]
     context = client()
     if dname == '':
         dname = name
@@ -138,6 +140,8 @@ async def post_new_local_container(model: NewContainerRequestModel, response: Re
         return {'result': 'failure:not found', 'reason': f'Folder @ {model.name} not found.'}
 
 def load_remote_container(_name, env, dname, vols):
+    env = {i.split('=')[0]: i.split('=')[1] for i in env if len(i) > 0}
+    vols = [i for i in vols if len(i) > 0]
     context = client()
     if ':' in _name:
         name = _name.split(':')[0]
