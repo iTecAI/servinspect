@@ -124,6 +124,13 @@ def load_local_container(name, env, dname, vols, vfrom):
         tag=f'{dname}-{str(time.time())}',
         labels={'originator': 'Web Panel'}
     )
+
+    if os.path.exists(os.path.join(cfg()['localDockerDirectory'], name, '_commander_.json')):
+        with open(os.path.join(cfg()['localDockerDirectory'], name, '_commander_.json'), 'r') as f:
+            kwargs = json.load(f)
+    else:
+        kwargs = {}
+
     cont = context.containers.run(
         image=image.id,
         detach=True,
@@ -131,7 +138,8 @@ def load_local_container(name, env, dname, vols, vfrom):
         name=dname,
         environment=env,
         volumes=vols,
-        volumes_from=vfrom
+        volumes_from=vfrom,
+        **kwargs
     )
 @router.post('/containers/new/local')
 async def post_new_local_container(model: NewContainerRequestModel, response: Response):
