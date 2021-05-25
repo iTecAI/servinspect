@@ -23,6 +23,8 @@ function humanFileSize(bytes, si = false, dp = 1) {
 function cond(c, t, f) { if (c) { return t; } else { return f; } }
 
 $(document).ready(function () {
+    $('#commander-link').on('click', function () { window.open('commander', '_self'); });
+
     function update() {
         $.get('/status/').done(function (result) {
             localStorage.status = JSON.stringify(result);

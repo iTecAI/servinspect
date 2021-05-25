@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Commander</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../static/commander.css">
+
+    <script src="../static/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../static/commander.js"></script>
+</head>
+<body>
+    <div id='top-bar' class='shadow noselect'>
+        <span class='material-icons'>admin_panel_settings</span>
+        <span id='title'>Server Commander</span>
+    </div>
+    <div id='docker-panel'>
+        <div id='docker-title' class='shadow noselect'>
+            <img src="../static/docker.svg" alt="Docker">
+            <span class='title'>Docker Containers</span>
+        </div>
+        <div id='docker-area' class='noscroll'></div>
+        <button id='add-container' class='noselect shadow'><span class='material-icons'>add</span></button>
+    </div>
+    <div id='new-container-dialog' class='noselect shadow'>
+        <div id="local-container-box" class='container-area'>
+            <div class='title'>
+                <span class='material-icons'>folder</span>
+                <span class='title-text'>Local</span>
+            </div>
+            <div class='list noscroll'></div>
+        </div>
+        <div id="remote-container-box" class='container-area'>
+            <div class='title'>
+                <span class='material-icons'>public</span>
+                <span class='title-text'>Online</span>
+            </div>
+            <div class='list noscroll'></div>
+        </div>
+        <input type="text" id='enter-remote-container' placeholder="docker/getting-started">
+        <span class='material-icons' id="container-input-decoration">public</span>
+        <div class='separator'></div>
+        <input type="text" id='envvars-input' placeholder="VAR=value;VAR2=value2;...">
+        <span class='material-icons' id="envvars-input-decoration">format_list_bulleted</span>
+        <input type="text" id='name-input' placeholder="My Container">
+        <span class='material-icons' id="name-input-decoration">drive_file_rename_outline</span>
+    </div>
+</body>
+</html>

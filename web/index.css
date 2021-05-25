@@ -71,7 +71,7 @@ html {
     z-index: 100;
 }
 
-#top-bar .material-icons:first-child {
+#top-bar > .material-icons:first-child {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -85,6 +85,31 @@ html {
     left: 34px;
     transform: translate(0, -50%);
     color: var(--primary-dark-text);
+}
+#commander-link {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: inline-block;
+    width: calc(5vh - 10px);
+    height: calc(5vh - 10px);
+    border-radius: 50%;
+    background-color: var(--primary-dark);
+    transition: background-color 0.2s;
+    border: none;
+    color: white;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0px;
+}
+#commander-link .material-icons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#commander-link:hover {
+    background-color: #00000055;
 }
 
 #resource-bar {

@@ -1,8 +1,8 @@
 from json.decoder import JSONDecodeError
 from os import name
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, PlainTextResponse
 import psutil
 import json
 import logging
@@ -11,9 +11,13 @@ from socket import *
 import os
 from concurrent.futures import ThreadPoolExecutor
 import math
-import threading
+import multiprocessing
 import time
 import traceback
+import ipaddress
+
+# Additional routers
+from commander import router as commander_router
 
 LOCK = False
 
@@ -32,7 +36,16 @@ else:
 
 app = FastAPI()
 app.mount('/static', StaticFiles(directory='web'), name='static')
+app.include_router(commander_router, prefix='/commander', tags=['commander'])
 
+@app.middleware('http')
+async def check_allowed_ip(request: Request, call_next):
+    if ipaddress.ip_address(request.client.host).is_private or request.client.host in cfg['allowedClients'] or not 'commander' in request.url.path:
+        response = await call_next(request)
+    else:
+        logging.warning(f'Unauthorized connection from {request.client.host}')
+        response = PlainTextResponse('ERROR: Not allowed, client IP is not local or in list of allowed client IPs.', status_code=403)
+    return response
 
 @app.get('/')
 async def get_root():
@@ -140,7 +153,7 @@ if __name__ == "__main__":
     try:
         logging.info('Starting status update thread.')
 
-        threading.Thread(target=status_loop, daemon=True).start()
+        multiprocessing.Process(target=status_loop, daemon=True).start()
 
         logging.info('Waiting until status is populated.')
         while not os.path.exists('last_processes.json'):
