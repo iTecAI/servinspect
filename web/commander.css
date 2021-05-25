@@ -352,16 +352,22 @@ html {
 #container-input-decoration {
     position: absolute;
     left: 10px;
-    bottom: 128px;
+    bottom: 165px;
     opacity: 0.8;
 }
 #envvars-input-decoration {
     position: absolute;
     left: 10px;
-    bottom: 83px;
+    bottom: 120px;
     opacity: 0.8;
 }
 #vols-input-decoration {
+    position: absolute;
+    left: 10px;
+    bottom: 83px;
+    opacity: 0.8;
+}
+#vfrom-input-decoration {
     position: absolute;
     left: 10px;
     bottom: 47px;

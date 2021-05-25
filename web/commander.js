@@ -147,7 +147,8 @@ $(document).ready(function () {
             'name': $(this).val(),
             'envvars': $('#envvars-input').val().split(';'),
             'volumes': $('#vols-input').val().split(';'),
-            'display_name': $('#name-input').val().toLowerCase().replace(/ /g, '-')
+            'display_name': $('#name-input').val().toLowerCase().replace(/ /g, '-'),
+            'vfrom': $('#vfrom-input').val().split(';')
         })).done((function (result) {
             console.log(result);
             var dat = JSON.parse(localStorage.getItem('remote_containers'));
@@ -172,7 +173,8 @@ $(document).ready(function () {
                             'name': $(this).text(),
                             'envvars': $('#envvars-input').val().split(';'),
                             'volumes': $('#vols-input').val().split(';'),
-                            'display_name': $('#name-input').val().toLowerCase().replace(/ /g, '-')
+                            'display_name': $('#name-input').val().toLowerCase().replace(/ /g, '-'),
+                            'vfrom': $('#vfrom-input').val().split(';')
                         })).done((function (result) {
                             console.log(result);
                             $('#new-container-dialog').hide();
@@ -193,7 +195,8 @@ $(document).ready(function () {
                                 'name': $(this).text(),
                                 'envvars': $('#envvars-input').val().split(';'),
                                 'volumes': $('#vols-input').val().split(';'),
-                                'display_name': $('#name-input').val().toLowerCase().replace(/ /g, '-')
+                                'display_name': $('#name-input').val().toLowerCase().replace(/ /g, '-'),
+                                'vfrom': $('#vfrom-input').val().split(';')
                             })).done(console.log);
                             $('#new-container-dialog').hide();
                         })

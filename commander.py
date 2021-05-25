@@ -110,10 +110,12 @@ class NewContainerRequestModel(BaseModel):
     envvars: list
     volumes: list
     display_name: str
+    vfrom: list
 
-def load_local_container(name, env, dname, vols):
+def load_local_container(name, env, dname, vols, vfrom):
     env = {i.split('=')[0]: i.split('=')[1] for i in env if len(i) > 0}
     vols = [i for i in vols if len(i) > 0]
+    vfrom = [i for i in vfrom if len(i) > 0]
     context = client()
     if dname == '':
         dname = name
@@ -128,20 +130,22 @@ def load_local_container(name, env, dname, vols):
         restart_policy={"Name": "always"},
         name=dname,
         environment=env,
-        volumes=vols
+        volumes=vols,
+        volumes_from=vfrom
     )
 @router.post('/containers/new/local')
 async def post_new_local_container(model: NewContainerRequestModel, response: Response):
     if os.path.exists(os.path.join(cfg()['localDockerDirectory'], model.name)):
-        multiprocessing.Process(target=load_local_container, args=[model.name, model.envvars, model.display_name, model.volumes], daemon=True).start()
+        multiprocessing.Process(target=load_local_container, args=[model.name, model.envvars, model.display_name, model.volumes, model.vfrom], daemon=True).start()
         return {}
     else:
         response.status_code = 404
         return {'result': 'failure:not found', 'reason': f'Folder @ {model.name} not found.'}
 
-def load_remote_container(_name, env, dname, vols):
+def load_remote_container(_name, env, dname, vols, vfrom):
     env = {i.split('=')[0]: i.split('=')[1] for i in env if len(i) > 0}
     vols = [i for i in vols if len(i) > 0]
+    vfrom = [i for i in vfrom if len(i) > 0]
     context = client()
     if ':' in _name:
         name = _name.split(':')[0]
@@ -161,13 +165,14 @@ def load_remote_container(_name, env, dname, vols):
         restart_policy={"Name": "always"}, 
         name=name,
         environment=env,
-        volumes=vols
+        volumes=vols,
+        volumes_from=vfrom
     )
 
 @router.post('/containers/new/remote')
 async def post_new_remote_container(model: NewContainerRequestModel, response: Response):
     try:
-        multiprocessing.Process(target=load_remote_container, args=[model.name, model.envvars, model.display_name, model.volumes], daemon=True).start()
+        multiprocessing.Process(target=load_remote_container, args=[model.name, model.envvars, model.display_name, model.volumes, model.vfrom], daemon=True).start()
         return {}
     except KeyboardInterrupt:
         response.status_code = 404
