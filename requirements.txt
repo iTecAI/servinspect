@@ -3,3 +3,5 @@ psutil
 uvicorn
 aiofiles
 nest-asyncio
+docker
+pydantic
