@@ -108,9 +108,10 @@ async def post_container_pause(cid: str, response: Response):
 class NewContainerRequestModel(BaseModel):
     name: str
     envvars: list
+    volumes: list
     display_name: str
 
-def load_local_container(name, env, dname):
+def load_local_container(name, env, dname, vols):
     context = client()
     if dname == '':
         dname = name
@@ -123,18 +124,20 @@ def load_local_container(name, env, dname):
         image=image.id,
         detach=True,
         restart_policy={"Name": "always"},
-        name=dname
+        name=dname,
+        environment=env,
+        volumes=vols
     )
 @router.post('/containers/new/local')
 async def post_new_local_container(model: NewContainerRequestModel, response: Response):
     if os.path.exists(os.path.join(cfg()['localDockerDirectory'], model.name)):
-        multiprocessing.Process(target=load_local_container, args=[model.name, model.envvars, model.display_name], daemon=True).start()
+        multiprocessing.Process(target=load_local_container, args=[model.name, model.envvars, model.display_name, model.volumes], daemon=True).start()
         return {}
     else:
         response.status_code = 404
         return {'result': 'failure:not found', 'reason': f'Folder @ {model.name} not found.'}
 
-def load_remote_container(_name, env, dname):
+def load_remote_container(_name, env, dname, vols):
     context = client()
     if ':' in _name:
         name = _name.split(':')[0]
@@ -152,13 +155,15 @@ def load_remote_container(_name, env, dname):
         image.id, 
         detach=True, 
         restart_policy={"Name": "always"}, 
-        name=name
+        name=name,
+        environment=env,
+        volumes=vols
     )
 
 @router.post('/containers/new/remote')
 async def post_new_remote_container(model: NewContainerRequestModel, response: Response):
     try:
-        multiprocessing.Process(target=load_remote_container, args=[model.name, model.envvars, model.display_name], daemon=True).start()
+        multiprocessing.Process(target=load_remote_container, args=[model.name, model.envvars, model.display_name, model.volumes], daemon=True).start()
         return {}
     except KeyboardInterrupt:
         response.status_code = 404
